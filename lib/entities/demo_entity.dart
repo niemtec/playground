@@ -1,9 +1,9 @@
 enum DemoEntity {
   sonar(
-    name: "Sonar",
+    name: "Sonar Animation",
     description:
         "Sonar animation shows ripples radiating from a central point, creating a sonar effect.",
-    rawFilename: "sonar",
+    rawFilename: "sonar_animation",
   );
 
   const DemoEntity({required this.name, required this.description, required String rawFilename})

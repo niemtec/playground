@@ -71,12 +71,12 @@ Widget _cardTitleAndDescriptionWidget(
                 Text(
                   'Card Title',
                   style: Theme.of(context).textTheme.titleMedium,
-                  overflow: TextOverflow.ellipsis, // Fade out if text overflows
+                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4.0), // Add spacing between title and description
+                const SizedBox(height: 4.0),
                 Text(
                   'This is a description of the card. It provides more information about the content.',
-                  overflow: TextOverflow.ellipsis, // Fade out if text overflows
+                  overflow: TextOverflow.ellipsis,
                   maxLines:
                       (constraints.maxHeight ~/ Theme.of(context).textTheme.bodyMedium!.fontSize!)
                           .toInt(),
@@ -102,7 +102,7 @@ Widget _buttonWidget(double cornerRadius, double basePadding, BuildContext conte
           bottomRight: Radius.circular(cornerRadius),
         ),
       ),
-      minimumSize: Size(double.infinity, double.infinity), // Adjust width and height
+      minimumSize: Size(double.infinity, double.infinity),
     ),
     child: Text("View More"),
   );

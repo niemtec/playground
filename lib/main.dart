@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:playground/landing_page/landing_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -64,7 +65,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Playground')),
-      body: Center(child: Text('Tap a FAB to change colour or theme mode')),
+      body: Center(child: LandingPage()),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -93,7 +94,7 @@ class HomeScreen extends StatelessWidget {
       context: context,
       builder:
           (_) => AlertDialog(
-            title: Text('Pick a colour'),
+            title: Text('Pick theme colour'),
             content: SingleChildScrollView(
               child: ColorPicker(
                 pickerColor: tempColor,
@@ -105,7 +106,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             actions: [
-              TextButton(child: Text('Cancel'), onPressed: Navigator.of(context).pop),
+              TextButton(onPressed: Navigator.of(context).pop, child: Text('Cancel')),
               TextButton(
                 child: Text('Reset'),
                 onPressed: () {

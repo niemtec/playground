@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class SonarAnimation extends StatefulWidget {
   const SonarAnimation({
-    required this.child,
-    this.color = Colors.black,
+    this.child,
+    this.color = Colors.deepPurple,
     this.delay = Duration.zero,
     this.minRadius = 0,
     this.maxRadius = 500,
@@ -13,7 +13,7 @@ class SonarAnimation extends StatefulWidget {
   });
 
   ///[Widget] this widget will placed at center of the animation
-  final Widget child;
+  final Widget? child;
 
   ///[Duration] delay of the animation
   final Duration delay;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:playground/landing_page/landing_page_card_widget.dart';
+import 'package:playground/entities/demo_entity.dart';
+import 'package:playground/core/landing_page_card_widget.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -15,16 +16,16 @@ class _LandingPageState extends State<LandingPage> {
     final isSmallScreen = screenWidth < 600;
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: isSmallScreen ? 1 : 2,
           crossAxisSpacing: 16.0,
           mainAxisSpacing: 16.0,
         ),
-        itemCount: 10, // Example: 10 cards
+        itemCount: DemoEntity.values.length,
         itemBuilder: (context, index) {
-          return LandingPageCardWidget();
+          return LandingPageCardWidget(demoEntity: DemoEntity.values[index]);
         },
       ),
     );

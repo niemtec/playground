@@ -19,7 +19,7 @@ class SliderCardWidget extends StatelessWidget {
           BoxShadow(
             color: Theme.of(context).shadowColor.withAlpha(32),
             blurRadius: 16.0,
-            offset: Offset(0, 4), // changes position of shadow
+            offset: Offset(0, 4),
           ),
         ],
       ),

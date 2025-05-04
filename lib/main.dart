@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:playground/landing_page/landing_page.dart';
+import 'package:playground/core/landing_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,27 +63,32 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Playground')),
-      body: Center(child: LandingPage()),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FloatingActionButton(
-            heroTag: 'toggle_theme',
-            onPressed: onToggleDarkMode,
-            child: Icon(
-              isDarkMode ? Icons.light_mode : Icons.dark_mode,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(title: Text('Playground')),
+        body: Center(child: LandingPage()),
+        floatingActionButton: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FloatingActionButton(
+              heroTag: 'toggle_theme',
+              onPressed: onToggleDarkMode,
+              child: Icon(
+                isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
             ),
-          ),
-          SizedBox(height: 16),
-          FloatingActionButton(
-            heroTag: 'pick_color',
-            child: Icon(Icons.color_lens, color: Theme.of(context).colorScheme.onPrimaryContainer),
-            onPressed: () => _showColorPickerDialog(context),
-          ),
-        ],
+            SizedBox(height: 16.0),
+            FloatingActionButton(
+              heroTag: 'pick_color',
+              child: Icon(
+                Icons.color_lens,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+              onPressed: () => _showColorPickerDialog(context),
+            ),
+          ],
+        ),
       ),
     );
   }

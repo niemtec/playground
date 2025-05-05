@@ -28,11 +28,16 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Playground',
       theme: theme,
-      home: LandingPage(
-        themeColor: _themeColor,
-        isDarkMode: _isDarkMode,
-        onColourSelected: (newColour) => setState(() => _themeColor = newColour),
-        onToggleDarkMode: () => setState(() => _isDarkMode = !_isDarkMode),
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Playground')),
+        body: SafeArea(
+          child: LandingPage(
+            themeColor: _themeColor,
+            isDarkMode: _isDarkMode,
+            onColourSelected: (newColour) => setState(() => _themeColor = newColour),
+            onToggleDarkMode: () => setState(() => _isDarkMode = !_isDarkMode),
+          ),
+        ),
       ),
     );
   }

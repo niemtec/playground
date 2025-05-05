@@ -105,21 +105,21 @@ class CirclePainter extends CustomPainter {
   ///[Color] of the painter
   final Animation<double>? animation;
 
+  final Paint _paint = Paint(); // Reuse a single Paint object
+
   @override
   void paint(Canvas canvas, Size size) {
     final Rect rect = Rect.fromLTRB(0, 0, size.width, size.height);
-    final Paint paint = Paint(); // Reuse a single Paint object
 
     for (int wave = 0; wave < wavesCount; wave++) {
       final double waveProgress = ((wave + animation!.value) / wavesCount) % 1.0;
       final double opacity = (1 - waveProgress).clamp(0.0, 1.0);
 
       if (opacity > 0) {
-        // Skip fully transparent waves
-        paint.color = color.withOpacity(opacity);
+        _paint.color = color.withOpacity(opacity);
 
         final double radius = minRadius! + ((maxRadius! - minRadius!) * waveProgress);
-        canvas.drawCircle(rect.center, radius, paint);
+        canvas.drawCircle(rect.center, radius, _paint);
       }
     }
   }

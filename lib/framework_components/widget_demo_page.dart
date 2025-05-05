@@ -99,19 +99,19 @@ class _WidgetDemoPageState extends State<WidgetDemoPage> {
               ),
             ),
             actions: [
-              TextButton(onPressed: Navigator.of(context).pop, child: Text('Cancel')),
+              TextButton(onPressed: () => Navigator.pop(context), child: Text('Cancel')),
               TextButton(
                 child: Text('Reset'),
                 onPressed: () {
                   widget.onColourSelected(Colors.deepPurple);
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
               ),
               OutlinedButton(
                 child: Text('Set'),
                 onPressed: () {
                   widget.onColourSelected(tempColor);
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
               ),
             ],

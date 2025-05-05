@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:playground/core/landing_page.dart';
+import 'package:playground/framework_components/landing_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,105 +28,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Playground',
       theme: theme,
-      home: HomeScreen(
+      home: LandingPage(
         themeColor: _themeColor,
         isDarkMode: _isDarkMode,
-        onColorSelected: (newColor) {
-          setState(() {
-            _themeColor = newColor;
-          });
-        },
-        onToggleDarkMode: () {
-          setState(() {
-            _isDarkMode = !_isDarkMode;
-          });
-        },
+        onColourSelected: (newColour) => setState(() => _themeColor = newColour),
+        onToggleDarkMode: () => setState(() => _isDarkMode = !_isDarkMode),
       ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  final Color themeColor;
-  final bool isDarkMode;
-  final ValueChanged<Color> onColorSelected;
-  final VoidCallback onToggleDarkMode;
-
-  const HomeScreen({
-    super.key,
-    required this.themeColor,
-    required this.isDarkMode,
-    required this.onColorSelected,
-    required this.onToggleDarkMode,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: Text('Playground')),
-        body: Center(child: LandingPage()),
-        floatingActionButton: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            FloatingActionButton(
-              heroTag: 'toggle_theme',
-              onPressed: onToggleDarkMode,
-              child: Icon(
-                isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
-            SizedBox(height: 16.0),
-            FloatingActionButton(
-              heroTag: 'pick_color',
-              child: Icon(
-                Icons.color_lens,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-              onPressed: () => _showColorPickerDialog(context),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showColorPickerDialog(BuildContext context) {
-    Color tempColor = themeColor;
-    showDialog(
-      context: context,
-      builder:
-          (_) => AlertDialog(
-            title: Text('Pick theme colour'),
-            content: SingleChildScrollView(
-              child: ColorPicker(
-                pickerColor: tempColor,
-                onColorChanged: (color) => tempColor = color,
-                enableAlpha: false,
-                hexInputBar: true,
-                pickerAreaBorderRadius: BorderRadius.all(Radius.circular(16.0)),
-                labelTypes: const [ColorLabelType.rgb],
-              ),
-            ),
-            actions: [
-              TextButton(onPressed: Navigator.of(context).pop, child: Text('Cancel')),
-              TextButton(
-                child: Text('Reset'),
-                onPressed: () {
-                  onColorSelected(Colors.deepPurple);
-                  Navigator.of(context).pop();
-                },
-              ),
-              OutlinedButton(
-                child: Text('Set'),
-                onPressed: () {
-                  onColorSelected(tempColor);
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
     );
   }
 }

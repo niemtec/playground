@@ -1,20 +1,20 @@
-enum DemoEntity {
-  sonar(
-    name: "Sonar Animation",
-    description:
-        "Sonar animation shows ripples radiating from a central point, creating a sonar effect.",
-    rawFilename: "sonar_animation",
-  );
+import 'package:flutter/material.dart';
 
-  const DemoEntity({required this.name, required this.description, required String rawFilename})
-    : _rawFilename = rawFilename;
-
+class DemoEntity {
   final String name;
   final String description;
-  final String _rawFilename;
+  final String rawFilename;
+  final Widget Function() demoBuilder;
 
-  String get getImageUrl => "assets/images/$_rawFilename.png";
+  const DemoEntity({
+    required this.name,
+    required this.description,
+    required this.rawFilename,
+    required this.demoBuilder,
+  });
 
-  String get getCodeSampleUrl =>
-      "https://github.com/niemtec/playground/blob/main/lib/demo_widgets/$_rawFilename.dart";
+  String get imageUrl => "assets/images/$rawFilename.png";
+
+  String get codeSampleUrl =>
+      "https://github.com/niemtec/playground/blob/main/lib/demo_widgets/$rawFilename.dart";
 }

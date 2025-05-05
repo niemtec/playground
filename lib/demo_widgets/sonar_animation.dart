@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SonarAnimation extends StatefulWidget {
   const SonarAnimation({
     this.child,
-    this.color = Colors.deepPurple,
+    required this.color,
     this.delay = Duration.zero,
     this.minRadius = 0,
     this.maxRadius = 500,
@@ -40,32 +40,43 @@ class SonarAnimation extends StatefulWidget {
 ///state of the animation
 class SonarAnimationState extends State<SonarAnimation>
     with TickerProviderStateMixin<SonarAnimation> {
-  AnimationController? _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
-    _controller = AnimationController(duration: widget.duration, vsync: this)..repeat();
-
     super.initState();
+    _controller = AnimationController(duration: widget.duration, vsync: this)..repeat();
+  }
+
+  @override
+  void didUpdateWidget(SonarAnimation oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.duration != widget.duration) {
+      _controller.duration = widget.duration;
+      _controller.reset();
+      _controller.repeat();
+    }
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) => CustomPaint(
-    painter: CirclePainter(
-      _controller,
-      color: widget.color,
-      minRadius: widget.minRadius,
-      maxRadius: widget.maxRadius,
-      wavesCount: widget.ripplesCount,
-    ),
-    child: widget.child,
-  );
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: CirclePainter(
+        _controller,
+        color: widget.color, // Pass the updated color
+        minRadius: widget.minRadius,
+        maxRadius: widget.maxRadius,
+        wavesCount: widget.ripplesCount,
+      ),
+      child: widget.child,
+    );
+  }
 }
 
 /// Creating a Circular painter for clipping the rect and creating circle shape
@@ -118,7 +129,6 @@ class CirclePainter extends CustomPainter {
     return oldDelegate.color != color ||
         oldDelegate.minRadius != minRadius ||
         oldDelegate.maxRadius != maxRadius ||
-        oldDelegate.wavesCount != wavesCount ||
-        oldDelegate.animation != animation;
+        oldDelegate.wavesCount != wavesCount;
   }
 }

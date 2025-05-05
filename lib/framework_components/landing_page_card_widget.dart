@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:playground/core/demo_widget_preview_page.dart';
 import 'package:playground/entities/constants.dart';
 import 'package:playground/entities/demo_entity.dart';
+import 'package:playground/framework_components/widget_demo_page.dart';
 
 class LandingPageCardWidget extends StatelessWidget {
   final DemoEntity demoEntity;
-  const LandingPageCardWidget({required this.demoEntity, super.key});
+  final Color themeColor;
+  final bool isDarkMode;
+  final ValueChanged<Color> onColourSelected;
+  final VoidCallback onToggleDarkMode;
+  const LandingPageCardWidget({
+    required this.demoEntity,
+    super.key,
+    required this.themeColor,
+    required this.isDarkMode,
+    required this.onColourSelected,
+    required this.onToggleDarkMode,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +33,7 @@ class LandingPageCardWidget extends StatelessWidget {
             Expanded(
               flex: 5,
               child: _imageWidget(
-                imageUrl: demoEntity.getImageUrl,
+                imageUrl: demoEntity.imageUrl,
                 cornerRadius: kCornerRadius,
                 kBasePadding: kBasePadding,
                 context: context,
@@ -41,20 +52,22 @@ class LandingPageCardWidget extends StatelessWidget {
             Expanded(
               flex: 1,
               child: _buttonWidget(
-                onPressed:
-                    () => showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(kCornerRadius)),
-                      ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
                       builder:
-                          (context) => SizedBox(
-                            height:
-                                MediaQuery.of(context).size.height * 0.9, // 90% of screen height
-                            child: DemoWidgetPreviewPage(demoEntity: demoEntity),
+                          (_) => WidgetDemoPage(
+                            title: demoEntity.name,
+                            themeColor: themeColor,
+                            isDarkMode: isDarkMode,
+                            onColourSelected: onColourSelected,
+                            onToggleDarkMode: onToggleDarkMode,
+                            builder: () => demoEntity.demoBuilder(),
                           ),
                     ),
+                  );
+                },
                 cornerRadius: kCornerRadius,
                 kBasePadding: kBasePadding,
                 context: context,
